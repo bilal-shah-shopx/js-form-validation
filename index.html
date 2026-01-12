@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Form Validator</title>
+    <link rel="icon" href="js.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="my-5" data-bs-theme="dark">
+    <div class="w-50 mx-auto d-flex flex-column gap-4">
+        <h1 class="text-center">Form Validator</h1>
+        <form class="d-flex flex-column gap-4">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="f-name" placeholder="Enter First Name" name="f-name" required>
+                <label for="f-name">First Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="l-name" placeholder="Enter Last Name" name="l-name" required>
+                <label for="l-name">Last Name</label>
+            </div>
+            <!--Password should have min length of 8. Should have both alphanumeric, should have at least one upper case and one the lower case.-->
+            <div class="form-floating">
+                <input type="password" class="form-control" id="pwd" placeholder="Enter Password" name="pwd">
+                <label for="pwd">Password</label>
+            </div>
+            <!--Password and confirm password should be matched.-->
+            <div class="form-floating">
+                <input type="password" class="form-control" id="co-pwd" placeholder="Enter Confirm Password" name="co-pwd">
+                <label for="co-pwd">Confirm Password</label>
+            </div>
+            <!--The age field value should be between 18 and 151.-->
+            <div class="form-floating">
+                <input type="number" class="form-control" min="18" max="151" id="age" placeholder="Enter Age" name="age" required>
+                <label for="age">Age</label>
+            </div>
+            <!--The contact number should be 11 digit number.-->
+            <div class="form-floating">
+                <input type="tel" class="form-control" id="contact" placeholder="Enter Contact" name="contact">
+                <label for="contact">Contact</label>
+            </div>
+            <!--The notification email field can have multiple comma-separated emails. We have to validate each mail.-->
+             <div class="form-floating">
+                <input type="text" class="form-control" id="email" placeholder="Enter Notifications Emails" name="email" required>
+                <label for="email">Notifications emails</label>
+            </div>
+            <!--Submit button should be disabled if the form is not validated and vice versa.-->
+            <button class="btn btn-success" type="submit" onclick="formValidation()">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
