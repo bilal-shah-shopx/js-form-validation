@@ -1,18 +1,99 @@
-function formValidation() {
-    const pwd = document.getElementById('pwd').value;
-    const coPwd = document.getElementById('co-pwd').value;
-    const contact = document.getElementById('contact').value;
-    const email = document.getElementById('email').value;
+const btn = document.querySelector('.btn');
 
+btn.addEventListener('click', function formValidation() {
+    let fName = document.getElementById('f-name').value;
+    let lName = document.getElementById('l-name').value;
+    let pwd = document.getElementById('pwd').value;
+    let coPwd = document.getElementById('co-pwd').value;
+    let age = document.getElementById('age').value;
+    let contact = document.getElementById('contact').value;
+    let emails = document.getElementById('email').value;
+
+    const fNameError = document.querySelector('.f-name');
+    const lNameError = document.querySelector('.l-name');
+    const pwdError = document.querySelector('.pwd');
+    const coPwdError = document.querySelector('.co-pwd');
+    const ageError = document.querySelector('.age');
+    const contactError = document.querySelector('.contact');
+    const emailError = document.querySelector('.email');
+    const validEmailError = document.querySelector('.valid-email');
+
+    let isValidated = true;
+
+    if (fName) {
+        isValidated = true;
+        fNameError.classList.add('d-none');
+    }
+    else{
+        isValidated = false;
+        fNameError.classList.remove('d-none');
+    }
+    if (lName) {
+        isValidated = true;
+        lNameError.classList.add('d-none');
+    }
+    else{
+        isValidated = false;
+        lNameError.classList.remove('d-none');
+    }
     if (pwd) {
-        checkPassword(pwd, coPwd);
+        if (isInvalidPwd(pwd)) {
+            isValidated = false;
+            pwdError.classList.remove('d-none');
+        }
+        else if(!isEqual(pwd, coPwd)){
+            isValidated = false;
+            pwdError.classList.add('d-none');
+            coPwdError.classList.remove('d-none');
+        }
+        else{
+            isValidated = true;
+            pwdError.classList.add('d-none');
+            coPwdError.classList.add('d-none');
+        }
+    }
+    if (age) {
+        if(isInvalidAge(age)){
+            isValidated = false;
+            ageError.classList.remove('d-none');
+        }
+        else{
+            isValidated = true;
+            ageError.classList.add('d-none');
+        }
     }
     if (contact) {
-        checkContact(contact);
+        if(isInvalidContact(contact)){
+            isValidated = false;
+            contactError.classList.remove('d-none');
+        }
+        else{
+            isValidated = true;
+            contactError.classList.add('d-none');
+        }
+    }
+    if (emails) {
+        if(areInvalidEmails(emails)){
+            isValidated = false;
+            validEmailError.classList.remove('d-none');
+        }
+        else{
+            isValidated = true;
+            validEmailError.classList.add('d-none');
+        }
+        emailError.classList.add('d-none');
+    }
+    else {
+        isValidated = false;
+        validEmailError.classList.add('d-none');
+        emailError.classList.remove('d-none');
     }
 
-    checkEmails(email);
+    if(isValidated){
+        alert('Form is Validated!');
+    }
 }
+);
 
 function hasUpperCase(pwd) {
     return /[A-Z]/.test(pwd);
@@ -26,38 +107,31 @@ function hasNumber(pwd) {
     return /[0-9]/.test(pwd);
 }
 
-function checkPassword(pwd, coPwd) {
-    if (pwd !== coPwd) {
-        alert('Password and confirm password should be matched!')
-    }
-    else {
-        if (pwd.length < 8) {
-            alert(`Password should have min length of 8!`);
-        }
-        else if (!hasUpperCase(pwd) || !hasLowerCase(pwd) || !hasNumber(pwd)) {
-            alert("Should have both alphanumeric, should have at least one upper case and one the lower case!");
-        }
-    }
+function isInvalidPwd(pwd){
+    return pwd.length < 8 || !hasUpperCase(pwd) || !hasLowerCase(pwd) || !hasNumber(pwd);
 }
 
-function checkContact(contact) {
-    const regex = '/^\d+$/';
-    if (!regex.test(contact)) {
-        alert("Contact should be a number!");
-    }
-    else if (contact.length != 11) {
-        alert(`Contact should have length of 11!`);
-    }
+function isEqual(pwd, coPwd){
+    return pwd===coPwd;
 }
 
-function checkEmails(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function isInvalidAge(age){
+    return !(age>=18&&age<=151);
+}
 
-    const emails = email.split(',').map(e => e.trim());
+function hasAllDigits(contact){
+    return /^\d+$/.test(contact);
+}
 
-    const allValid = emails.every(email => regex.test(email));
+function isInvalidContact(contact){
+    return contact.length!=11 || !hasAllDigits(contact); 
+}
 
-    if (!allValid) {
-        alert('One or more emails are invalid!');
-    }
+function isValidEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function areInvalidEmails(emails){
+    const allEmails = emails.split(',').map(e => e.trim());
+    return !(allEmails.every(email => isValidEmail(email)));
 }

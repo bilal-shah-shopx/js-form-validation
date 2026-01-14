@@ -12,40 +12,42 @@
         <h1 class="text-center">Form Validator</h1>
         <form class="d-flex flex-column gap-4">
             <div class="form-floating">
-                <input type="text" class="form-control" id="f-name" placeholder="Enter First Name" name="f-name" required>
+                <input type="text" class="form-control" id="f-name" placeholder="Enter First Name" name="f-name">
                 <label for="f-name">First Name</label>
+                <span class="f-name text-danger small d-none">* First Name Required</span>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="l-name" placeholder="Enter Last Name" name="l-name" required>
+                <input type="text" class="form-control" id="l-name" placeholder="Enter Last Name" name="l-name">
                 <label for="l-name">Last Name</label>
+                <span class="l-name text-danger small d-none">* Last Name Required</span>
             </div>
-            <!--Password should have min length of 8. Should have both alphanumeric, should have at least one upper case and one the lower case.-->
             <div class="form-floating">
                 <input type="password" class="form-control" id="pwd" placeholder="Enter Password" name="pwd">
                 <label for="pwd">Password</label>
+                <span class="pwd text-danger small d-none">* Password should have min length of 8. Should have both alphanumeric, should have at least one upper case and one the lower case</span>
             </div>
-            <!--Password and confirm password should be matched.-->
             <div class="form-floating">
                 <input type="password" class="form-control" id="co-pwd" placeholder="Enter Confirm Password" name="co-pwd">
                 <label for="co-pwd">Confirm Password</label>
+                <span class="co-pwd text-danger small d-none">* Password and confirm password should be matched</span>
             </div>
-            <!--The age field value should be between 18 and 151.-->
             <div class="form-floating">
-                <input type="number" class="form-control" min="18" max="151" id="age" placeholder="Enter Age" name="age" required>
+                <input type="number" class="form-control" id="age" placeholder="Enter Age" name="age">
                 <label for="age">Age</label>
+                <span class="age text-danger small d-none">* Should be between 18 and 151</span>
             </div>
-            <!--The contact number should be 11 digit number.-->
             <div class="form-floating">
                 <input type="tel" class="form-control" id="contact" placeholder="Enter Contact" name="contact">
                 <label for="contact">Contact</label>
+                <span class="contact text-danger small d-none">* Should be 11 digit number</span>
             </div>
-            <!--The notification email field can have multiple comma-separated emails. We have to validate each mail.-->
              <div class="form-floating">
-                <input type="text" class="form-control" id="email" placeholder="Enter Notifications Emails" name="email" required>
+                <input title="Email field can have multiple comma-separated emails" type="text" class="form-control" id="email" placeholder="Enter Notifications Emails" name="email">
                 <label for="email">Notifications emails</label>
+                <span class="email text-danger small d-none">* Email Required</span>
+                <span class="valid-email text-danger small d-none">* Should be valid email</span>
             </div>
-            <!--Submit button should be disabled if the form is not validated and vice versa.-->
-            <button class="btn btn-success" type="submit" onclick="formValidation()">Submit</button>
+            <button class="btn btn-success" type="button">Validate</button>
         </form>
     </div>
 
