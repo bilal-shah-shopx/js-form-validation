@@ -21,7 +21,6 @@ btn.addEventListener('click', function formValidation() {
     let isValidated = true;
 
     if (fName) {
-        isValidated = true;
         fNameError.classList.add('d-none');
     }
     else{
@@ -29,7 +28,6 @@ btn.addEventListener('click', function formValidation() {
         fNameError.classList.remove('d-none');
     }
     if (lName) {
-        isValidated = true;
         lNameError.classList.add('d-none');
     }
     else{
@@ -47,7 +45,6 @@ btn.addEventListener('click', function formValidation() {
             coPwdError.classList.remove('d-none');
         }
         else{
-            isValidated = true;
             pwdError.classList.add('d-none');
             coPwdError.classList.add('d-none');
         }
@@ -58,7 +55,6 @@ btn.addEventListener('click', function formValidation() {
             ageError.classList.remove('d-none');
         }
         else{
-            isValidated = true;
             ageError.classList.add('d-none');
         }
     }
@@ -68,7 +64,6 @@ btn.addEventListener('click', function formValidation() {
             contactError.classList.remove('d-none');
         }
         else{
-            isValidated = true;
             contactError.classList.add('d-none');
         }
     }
@@ -78,7 +73,6 @@ btn.addEventListener('click', function formValidation() {
             validEmailError.classList.remove('d-none');
         }
         else{
-            isValidated = true;
             validEmailError.classList.add('d-none');
         }
         emailError.classList.add('d-none');
@@ -116,7 +110,7 @@ function isEqual(pwd, coPwd){
 }
 
 function isInvalidAge(age){
-    return !(age>=18&&age<=151);
+    return !(age>=18&&age<=151) || !hasAllDigits(age);
 }
 
 function hasAllDigits(contact){
