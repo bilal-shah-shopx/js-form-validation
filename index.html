@@ -14,11 +14,13 @@
             <div class="form-floating">
                 <input type="text" class="form-control" id="f-name" placeholder="Enter First Name" name="f-name">
                 <label for="f-name">First Name</label>
+                <span class="valid-f-name text-danger small d-none">* Should be Characters Only</span>
                 <span class="f-name text-danger small d-none">* First Name Required</span>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="l-name" placeholder="Enter Last Name" name="l-name">
                 <label for="l-name">Last Name</label>
+                <span class="valid-l-name text-danger small d-none">* Should be Characters Only</span>
                 <span class="l-name text-danger small d-none">* Last Name Required</span>
             </div>
             <div class="form-floating">
@@ -34,7 +36,8 @@
             <div class="form-floating">
                 <input type="text" class="form-control" id="age" placeholder="Enter Age" name="age">
                 <label for="age">Age</label>
-                <span class="age text-danger small d-none">* Should be between 18 and 151</span>
+                <span class="age text-danger small d-none">* Age is Required</span>
+                <span class="valid-age text-danger small d-none">* Should be between 18 and 151</span>
             </div>
             <div class="form-floating">
                 <input type="tel" class="form-control" id="contact" placeholder="Enter Contact" name="contact">
