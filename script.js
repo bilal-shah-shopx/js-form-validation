@@ -1,4 +1,5 @@
 const btn = document.querySelector('.btn');
+btn.classList.add('disabled');
 
 let fName = document.getElementById('f-name');
 let lName = document.getElementById('l-name');
@@ -20,174 +21,174 @@ const contactError = document.querySelector('.contact');
 const emailError = document.querySelector('.email');
 const validEmailError = document.querySelector('.valid-email');
 
-let isValidated = true;
-fName.addEventListener('input', function () { validatefName(fName.value) });
-lName.addEventListener('input', function () { validatelName(lName.value) });
-pwd.addEventListener('input', function () { validatePwd(pwd.value) });
-coPwd.addEventListener('input', function () { validateCoPwd(coPwd.value) });
-age.addEventListener('input', function () { validateAge(age.value) });
-contact.addEventListener('input', function () { validateContact(contact.value) });
-emails.addEventListener('input', function () { validateEmails(emails.value) });
+let isValidated = false;
+fName.addEventListener('input', function () { validatefName(fName.value); toggleDisable(); });
+lName.addEventListener('input', function () { validatelName(lName.value); toggleDisable(); });
+pwd.addEventListener('input', function () { validatePwd(pwd.value, coPwd.value); toggleDisable(); });
+coPwd.addEventListener('input', function () { validateCoPwd(pwd.value, coPwd.value); toggleDisable(); });
+age.addEventListener('input', function () { validateAge(age.value); toggleDisable(); });
+contact.addEventListener('input', function () { validateContact(contact.value); toggleDisable(); });
+emails.addEventListener('input', function () { validateEmails(emails.value); toggleDisable(); });
+
+function toggleDisable() {
+    isValidated = (validatefName(fName.value) && validatelName(lName.value) && validatePwd(pwd.value, coPwd.value) && validateCoPwd(pwd.value, coPwd.value) && validateAge(age.value) && validateContact(contact.value) && validateEmails(emails.value));
+    if (isValidated) {
+        btn.classList.remove('disabled');
+    }
+    else {
+        btn.classList.add('disabled');
+    }
+}
 
 function validatefName(name) {
     if (name) {
         if (isInvalidName(name)) {
-            btn.classList.add('disabled');
             isValidated = false;
             validfNameError.classList.remove('d-none');
         }
         else {
-            btn.classList.remove('disabled');
+            isValidated = true;
             validfNameError.classList.add('d-none');
         }
         fNameError.classList.add('d-none');
     }
     else {
-        btn.classList.add('disabled');
         isValidated = false;
         validfNameError.classList.add('d-none');
         fNameError.classList.remove('d-none');
     }
+    return isValidated;
 }
 
 function validatelName(name) {
     if (name) {
         if (isInvalidName(name)) {
-            btn.classList.add('disabled');
             isValidated = false;
             validlNameError.classList.remove('d-none');
         }
         else {
-            btn.classList.remove('disabled');
+            isValidated = true;
             validlNameError.classList.add('d-none');
         }
         lNameError.classList.add('d-none');
     }
     else {
-        btn.classList.add('disabled');
         isValidated = false;
         validlNameError.classList.add('d-none');
         lNameError.classList.remove('d-none');
     }
+    return isValidated;
 }
 
-function validatePwd(pwd) {
+function validatePwd(pwd, coPwd) {
     if (pwd) {
         if (isInvalidPwd(pwd)) {
-            btn.classList.add('disabled');
             isValidated = false;
             pwdError.classList.remove('d-none');
         }
         else if (!isEqual(pwd, coPwd)) {
-            btn.classList.add('disabled');
             isValidated = false;
             pwdError.classList.add('d-none');
             coPwdError.classList.remove('d-none');
         }
         else {
-            btn.classList.remove('disabled');
+            isValidated = true;
             pwdError.classList.add('d-none');
             coPwdError.classList.add('d-none');
         }
     }
+    else {
+        pwdError.classList.add('d-none');
+    }
+    return isValidated;
 }
 
-function validateCoPwd(coPwd) {
+function validateCoPwd(pwd, coPwd) {
     if (coPwd) {
         if (!isEqual(pwd, coPwd)) {
-            btn.classList.add('disabled');
             isValidated = false;
             coPwdError.classList.remove('d-none');
         }
         else {
-            btn.classList.remove('disabled');
+            isValidated = true;
             coPwdError.classList.add('d-none');
         }
     }
+    else if (pwd) {
+        coPwdError.classList.remove('d-none');
+    }
+    else {
+        coPwdError.classList.add('d-none');
+    }
+    return isValidated;
 }
 
 function validateAge(age) {
     if (age) {
         if (isInvalidAge(age)) {
-            btn.classList.add('disabled');
             isValidated = false;
             validAgeError.classList.remove('d-none');
         }
         else {
-            btn.classList.remove('disabled');
+            isValidated = true;
             validAgeError.classList.add('d-none');
         }
         ageError.classList.add('d-none');
     }
     else {
-        btn.classList.add('disabled');
         isValidated = false;
         validAgeError.classList.add('d-none');
         ageError.classList.remove('d-none');
     }
+    return isValidated;
 }
 
 function validateContact(contact) {
     if (contact) {
         if (isInvalidContact(contact)) {
-            btn.classList.add('disabled');
             isValidated = false;
             contactError.classList.remove('d-none');
         }
         else {
-            btn.classList.remove('disabled');
+            isValidated = true;
             contactError.classList.add('d-none');
         }
     }
+    else {
+        contactError.classList.add('d-none');
+    }
+    return isValidated;
 }
 
 function validateEmails(emails) {
     if (emails) {
         if (areInvalidEmails(emails)) {
-            btn.classList.add('disabled');
             isValidated = false;
             validEmailError.classList.remove('d-none');
         }
         else {
             isValidated = true;
-            btn.classList.remove('disabled');
             validEmailError.classList.add('d-none');
         }
         emailError.classList.add('d-none');
     }
     else {
-        btn.classList.add('disabled');
         isValidated = false;
         validEmailError.classList.add('d-none');
         emailError.classList.remove('d-none');
     }
+    return isValidated;
+}
+
+function resetForm() {
+    document.getElementById('form').reset();
+    btn.classList.add('disabled');
+    isValidated = false;
 }
 
 btn.addEventListener('click', function formValidation() {
-    let fName = document.getElementById('f-name').value;
-    let lName = document.getElementById('l-name').value;
-    let pwd = document.getElementById('pwd').value;
-    let coPwd = document.getElementById('co-pwd').value;
-    let age = document.getElementById('age').value;
-    let contact = document.getElementById('contact').value;
-    let emails = document.getElementById('email').value;
-
-    validatefName(fName);
-    validatelName(lName);
-    if (pwd) {
-        validatePwd(pwd);
-    }
-    if (coPwd) {
-        validateCoPwd(coPwd);
-    }
-    validateAge(age);
-    if (contact) {
-        validateContact(contact);
-    }
-    validateEmails(emails);
-    if (isValidated) {
-        alert('Form is Validated!');
-    }
+    alert('Form is Validated!');
+    resetForm();
 }
 );
 
